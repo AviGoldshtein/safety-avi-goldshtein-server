@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Image } from "./Image";
 
 @Entity()
 export class Event {
@@ -46,6 +47,9 @@ export class Event {
 
   @Column({ type: "varchar", length: 255 })
   weather: string;
+
+  @OneToMany(() => Image, image => image.event)
+  images: Image[];
 }
 
 

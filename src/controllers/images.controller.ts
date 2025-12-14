@@ -1,11 +1,21 @@
+import { Request, Response } from "express";
+import { imagesService } from "../services/images.service";
 
 
-export function gatAllImages(req, res) {
-  // Placeholder implementation for getting all images
-  res.json([{ id: 1, url: "http://example.com/image1.jpg" }]);
-}
+export async function uploadImages(req: Request, res: Response) {
+  const eventId = parseInt(req.params.eventId, 10);
+  const files = req.files as Express.Multer.File[];
 
-export function uploadImage(req, res) {
-  // Placeholder implementation for image upload
-  res.status(201).json({ message: "Image uploaded successfully" });
+  if (!files || files.length === 0) {
+    return res.status(400).json({ message: "No files uploaded" });
+  }
+
+  try {
+    const images = await imagesService.uploadImages(eventId, files);
+    res.status(201).json(images);
+  } catch (err: any) {
+    res.status(err.status || 500).json({
+      message: err.message || "Failed to upload images",
+    });
+  }
 }
