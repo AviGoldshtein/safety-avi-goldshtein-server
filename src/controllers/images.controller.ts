@@ -19,3 +19,15 @@ export async function uploadImages(req: Request, res: Response) {
     });
   }
 }
+
+export async function getEventImages(req: Request, res: Response) {
+  const eventId = parseInt(req.params.eventId, 10);
+  try {
+    const images = await imagesService.getImagesByEventId(eventId);
+    res.json(images);
+  } catch (err: any) {
+    res.status(err.status || 500).json({
+      message: err.message || "Failed to retrieve images",
+    });
+  }
+}

@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import "reflect-metadata";
 import { AppDataSource } from "./data-source";
@@ -7,13 +8,16 @@ import { logger } from "./middlewares/logger";
 import cors from "cors";
 
 
+dotenv.config();
 const app = express();
-const port = 3000;  // TODO: move to env variable
+const PORT = process.env.PORT;
+const HOST = process.env.HOST;
 
 AppDataSource.initialize()
   .then(() => {
     console.log("Database connected!");
 
+    app.use("/uploads", express.static("uploads"));
     app.use(express.json());
     app.use(cors());
     
@@ -27,8 +31,8 @@ AppDataSource.initialize()
 
     app.use(errorHandler)
 
-    app.listen(port, () => {
-      console.log(`Server listening on http://localhost:${port}`);
+    app.listen(PORT, () => {
+      console.log(`Server listening on http://${HOST}:${PORT}`);
     });
   })
   .catch((err) => {

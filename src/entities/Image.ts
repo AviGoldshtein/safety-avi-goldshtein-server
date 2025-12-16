@@ -13,9 +13,6 @@ export class Image {
   filename: string;
 
   @Column()
-  path: string;
-
-  @Column()
   mimetype: string;
 
   @Column()
