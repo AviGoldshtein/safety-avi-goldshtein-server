@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { eventsService } from '../services/events.service'
 
 
-export async function getAllEvents(req: Request, res: Response, next: NextFunction) {
+export async function getAllEvents(_req: Request, res: Response, next: NextFunction) {
     try {
         res.json(await eventsService.getAllEventsFromDB());
     } catch (err) {

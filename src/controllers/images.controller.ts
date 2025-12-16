@@ -31,3 +31,17 @@ export async function getEventImages(req: Request, res: Response) {
     });
   }
 }
+
+export async function deleteEventImages(req: Request, res: Response) {
+  const eventId = Number(req.params.eventId);
+  const imageIds: string[] = req.body.imageIds;
+
+  try {
+    const result = await imagesService.deleteImages(eventId, imageIds);
+    res.json({ deletedCount: result.affected ?? 0 });
+  } catch (err: any) {
+    res.status(err.status || 500).json({
+      message: err.message || "Failed to delete images",
+    });
+  }
+}

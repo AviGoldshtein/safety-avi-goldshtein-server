@@ -1,4 +1,4 @@
-export function logger(req, res, next) {
+export function logger(req, _res, next) {
     const time = new Date().toISOString();
     const method = req.method;
     const url = req.originalUrl;

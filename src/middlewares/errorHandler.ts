@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from "express";
 
 export function errorHandler(
   err: any,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) {
   console.error(err);
 

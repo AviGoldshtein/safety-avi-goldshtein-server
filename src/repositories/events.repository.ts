@@ -1,6 +1,7 @@
 import { AppDataSource } from "../data-source";
 import { Event } from "../entities/Event";
 
+
 const repo = AppDataSource.getRepository(Event);
 
 async function create(data) {
@@ -28,6 +29,7 @@ async function deleteEvent(eventId: number) {
 async function findOneBy(condition: Partial<Event>) {
   return repo.findOneBy(condition);
 }
+
 
 export const eventsRepo = {
   create,

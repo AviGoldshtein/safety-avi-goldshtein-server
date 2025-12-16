@@ -1,6 +1,9 @@
+import { In } from "typeorm";
+import { AppDataSource } from "../data-source";
+import { Image } from "../entities/Image";
 import { imagesRepo } from "../repositories/images.repository";
 import { eventsRepo } from "../repositories/events.repository";
-import { Image } from "../entities/Image";
+import { deleteImageFiles } from "../utils/fileSystem";
 
 
 function mapImageToResponse(img: Image) {
@@ -48,8 +51,31 @@ async function getImagesByEventId(eventId: number) {
   return images.map(mapImageToResponse);
 }
 
+export async function deleteImages(eventId: number, imgIds: string[]) {
+  if (!imgIds.length) return { affected: 0 };
+
+  return AppDataSource.transaction(async (manager) => {
+    const images = await manager.find(Image, {
+      where: {
+        id: In(imgIds),
+        event: { id: eventId },
+      },
+    });
+
+    if (!images.length) return { affected: 0 };
+
+    await deleteImageFiles(images);
+
+    return manager.delete(Image, {
+      id: In(imgIds),
+      event: { id: eventId },
+    });
+  });
+}
+
 
 export const imagesService = {
     uploadImages,
     getImagesByEventId,
+    deleteImages
 }
