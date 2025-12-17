@@ -6,6 +6,7 @@ import { errorHandler } from "./middlewares/errorHandler";
 import { eventsRouter } from "./routes/events.routes";
 import { logger } from "./middlewares/logger";
 import cors from "cors";
+import { setupSwagger } from "./swagger/swagger.config";
 
 
 dotenv.config();
@@ -30,6 +31,8 @@ AppDataSource.initialize()
     app.use("/api/events", eventsRouter)
 
     app.use(errorHandler)
+
+    setupSwagger(app);
 
     app.listen(PORT, () => {
       console.log(`Server listening on http://${HOST}:${PORT}`);
