@@ -4,7 +4,7 @@ import { Image } from "./Image";
 @Entity()
 export class Event {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
   @Column({ type: "varchar", length: 255 })
   activityType: string;

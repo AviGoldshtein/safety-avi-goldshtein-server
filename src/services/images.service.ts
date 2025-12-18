@@ -17,7 +17,7 @@ function mapImageToResponse(img: Image) {
 }
 
 async function uploadImages(
-  eventId: number,
+  eventId: string,
   files: Express.Multer.File[]
 ) {
   const event = await eventsRepo.findOneBy({ "id" :eventId});
@@ -39,7 +39,7 @@ async function uploadImages(
   return imagesRepo.createMany(imagesData);
 }
 
-async function getImagesByEventId(eventId: number) {
+async function getImagesByEventId(eventId: string) {
   const event = await eventsRepo.findOneBy({ "id": eventId});
     if (!event) {
     const error = new Error("Event not found");
@@ -51,7 +51,7 @@ async function getImagesByEventId(eventId: number) {
   return images.map(mapImageToResponse);
 }
 
-export async function deleteImages(eventId: number, imgIds: string[]) {
+export async function deleteImages(eventId: string, imgIds: string[]) {
   if (!imgIds.length) return { affected: 0 };
 
   return AppDataSource.transaction(async (manager) => {

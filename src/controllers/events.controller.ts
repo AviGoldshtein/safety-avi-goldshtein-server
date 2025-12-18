@@ -20,7 +20,7 @@ export async function createEvent(req: Request, res: Response, next: NextFunctio
 
 export async function updateEvent(req: Request, res: Response, next: NextFunction) {
     try {
-        const eventId = parseInt(req.params.eventId, 10);
+        const eventId = req.params.eventId;
         res.json(await eventsService.updateEventInDB(eventId, req.body));
     } catch (err) {
         next(err);
@@ -29,7 +29,7 @@ export async function updateEvent(req: Request, res: Response, next: NextFunctio
 
 export async function deleteEvent(req: Request, res: Response, next: NextFunction) {
     try {
-        const eventId = parseInt(req.params.eventId, 10);
+        const eventId = req.params.eventId;
         res.json(await eventsService.deleteEventInDB(eventId));
     } catch (err) {
         next(err);

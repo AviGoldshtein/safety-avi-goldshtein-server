@@ -13,12 +13,12 @@ async function findAll() {
   return repo.find();
 }
 
-async function update(eventId: number, updatedEvent) {
+async function update(eventId: string, updatedEvent) {
   await repo.update(eventId, updatedEvent);
   return repo.findOneBy({ id: eventId });
 }
 
-async function deleteEvent(eventId: number) {
+async function deleteEvent(eventId: string) {
   const event = await repo.findOneBy({ id: eventId });
   if (event) {
     await repo.remove(event);

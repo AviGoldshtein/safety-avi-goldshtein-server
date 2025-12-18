@@ -3,7 +3,7 @@ import { imagesService } from "../services/images.service";
 
 
 export async function uploadImages(req: Request, res: Response) {
-  const eventId = parseInt(req.params.eventId, 10);
+  const eventId = req.params.eventId;
   const files = req.files as Express.Multer.File[];
 
   if (!files || files.length === 0) {
@@ -21,7 +21,7 @@ export async function uploadImages(req: Request, res: Response) {
 }
 
 export async function getEventImages(req: Request, res: Response) {
-  const eventId = parseInt(req.params.eventId, 10);
+  const eventId = req.params.eventId
   try {
     const images = await imagesService.getImagesByEventId(eventId);
     res.json(images);
@@ -33,7 +33,7 @@ export async function getEventImages(req: Request, res: Response) {
 }
 
 export async function deleteEventImages(req: Request, res: Response) {
-  const eventId = Number(req.params.eventId);
+  const eventId = req.params.eventId;
   const imageIds: string[] = req.body.imageIds;
 
   try {

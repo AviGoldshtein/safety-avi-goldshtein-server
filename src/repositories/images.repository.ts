@@ -11,7 +11,7 @@ async function createMany(images: Partial<Image>[]) {
 
 async function findByEventId(eventId: string) {
   return repo.find({
-    where: { event: { id: Number(eventId) } },
+    where: { event: { id: eventId } },
   });
 }
 
