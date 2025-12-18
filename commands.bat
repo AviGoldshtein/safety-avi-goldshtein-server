@@ -6,3 +6,12 @@ docker run --name pg --network=mynet -e POSTGRES_PASSWORD=password -e POSTGRES_U
 
 @REM visualization with dbeaver
 docker run -d --name dbeaver --network=mynet -p 8978:8978 dbeaver/cloudbeaver:latest
+
+
+
+@REM migration
+npx typeorm-ts-node-commonjs migration:generate src/migrations/MakeEmailRequired -d src/data-source.ts
+
+npx typeorm-ts-node-commonjs migration:create src/migrations/AddAltTextToImage
+
+npm run migration:generate -- src/migrations/MakeEmailRequired
