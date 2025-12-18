@@ -32,7 +32,7 @@ AppDataSource.initialize()
 
     app.use(errorHandler)
 
-    setupSwagger(app);
+    setupSwagger(app, HOST, PORT);
 
     app.listen(PORT, () => {
       console.log(`Server listening on http://${HOST}:${PORT}`);
